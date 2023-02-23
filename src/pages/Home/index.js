@@ -10,7 +10,7 @@ function Home(){
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleLogin(e){
+    async function handleLogin(e){
         e.preventDefault();
         
         if(email == '' || password == ''){

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebaseConnection';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
@@ -7,8 +7,9 @@ function Register(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    function handleRegister(e){
+    async function handleRegister(e){
         e.preventDefault();
         
         if(email == '' || password == ''){
@@ -16,6 +17,15 @@ function Register(){
             return;
         }
 
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then(function(){
+                //-- cadastrou o usuário
+                navigate('/admin', {replace:true})
+            })
+            .catch(function(){
+                alert('Error creating user')
+            });
+        
         
 
         
